@@ -1,3 +1,5 @@
+package helpers;
+
 import java.io.*;
 import java.util.Properties;
 
@@ -6,7 +8,7 @@ public class PropertiesHelper {
     private final String url;
     private final String user;
     private final String password;
-    private Properties properties;
+    private final Properties properties;
 
     private static PropertiesHelper propertiesHelper;
     static {
@@ -16,12 +18,12 @@ public class PropertiesHelper {
             e.printStackTrace();
         }
     }
-    private PropertiesHelper() throws IOException {
+    public PropertiesHelper() throws IOException {
         this.properties = new Properties();
         FileReader fileReader = new FileReader(FILE_PATH);
         this.properties.load(fileReader);
         this.url = this.properties.getProperty("url");
-        this.user = this.properties.getProperty("user");
+        this.user = this.properties.getProperty("username");
         this.password = this.properties.getProperty("password");
     }
 

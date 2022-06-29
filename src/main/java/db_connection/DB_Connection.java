@@ -1,36 +1,38 @@
-package singleton_design_pattern;
+package db_connection;
 
+import helpers.PropertiesHelper;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class SingletonHelper_CreateConnection {
+public class DB_Connection {
 
-    private static SingletonHelper_CreateConnection instance;
-    private final String url = "jdbc:postgresql://localhost:5432/orders_management";
-    private final String username = "postgres";
-    private final String password = "password";
+    private static DB_Connection instance;
     private Connection connection;
+    private PropertiesHelper propertiesHelper;
 
-    private SingletonHelper_CreateConnection() throws SQLException {
+    public Connection getConnection () throws SQLException {
         try {
-            Class.forName("org.postgresql.Driver");
-            this.connection = DriverManager.getConnection(url, username, password);
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
+            propertiesHelper = new PropertiesHelper();
+            connection = DriverManager.getConnection(
+                    propertiesHelper.getUrl(),
+                    propertiesHelper.getUser(),
+                    propertiesHelper.getPassword()
+            );
+        } catch (IOException e) {
+            System.out.println("Database Connection Creation Failed");
         }
+        return connection;
     }
 
-    public static SingletonHelper_CreateConnection getInstance() throws SQLException {
+    public static DB_Connection getInstance() throws SQLException {
         if (instance == null) {
-            instance = new SingletonHelper_CreateConnection();
+            instance = new DB_Connection();
         } else if (instance.getConnection().isClosed()) {
-            instance = new SingletonHelper_CreateConnection();
+            instance = new DB_Connection();
         }
         return instance;
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 }

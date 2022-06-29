@@ -1,3 +1,5 @@
+package story_01_jdbc_tests;
+
 import java.sql.*;
 
 public class DB_Connection_TryWithResources {
