@@ -1,6 +1,7 @@
-package story01jdbctests;
+package jdbc01firsttests;
 
 import dbconnection.DBConnection;
+import helpers.CustomerHelperWithJavaFaker;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

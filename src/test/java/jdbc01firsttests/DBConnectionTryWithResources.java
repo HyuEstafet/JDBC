@@ -1,4 +1,4 @@
-package story01jdbctests;
+package jdbc01firsttests;
 
 import java.sql.*;
 
