@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95a15846-651e-4f68-beb7-ebeb498b566e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/story_01_jdbc_tests/JDBC_test_class.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/db_connection/DB_Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/db_connection/DB_Connection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/helpers/PropertiesHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/helpers/PropertiesHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/story_01_jdbc_tests/DB_Connection_TryWithResources.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/story_01_jdbc_tests/DB_Connection_TryWithResources.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

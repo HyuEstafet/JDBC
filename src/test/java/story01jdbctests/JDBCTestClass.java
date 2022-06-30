@@ -1,6 +1,6 @@
-package story_01_jdbc_tests;
+package story01jdbctests;
 
-import db_connection.DB_Connection;
+import dbconnection.DBConnection;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class JDBC_test_class {
+public class JDBCTestClass {
 
     Connection connection = null;
     Statement statement = null;
@@ -21,7 +21,7 @@ public class JDBC_test_class {
     @BeforeEach
     public void setConnection () {
         try {
-            connection = new DB_Connection().getConnection();
+            connection = new DBConnection().getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

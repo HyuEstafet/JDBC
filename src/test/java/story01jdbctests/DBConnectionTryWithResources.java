@@ -1,8 +1,8 @@
-package story_01_jdbc_tests;
+package story01jdbctests;
 
 import java.sql.*;
 
-public class DB_Connection_TryWithResources {
+public class DBConnectionTryWithResources {
     public static void main(String[] args) throws SQLException {
 
         try (Connection connection = DriverManager.getConnection

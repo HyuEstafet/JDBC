@@ -1,4 +1,4 @@
-package db_connection;
+package dbconnection;
 
 import helpers.PropertiesHelper;
 
@@ -7,9 +7,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DB_Connection {
+public class DBConnection {
 
-    private static DB_Connection instance;
+    private static DBConnection instance;
     private Connection connection;
     private PropertiesHelper propertiesHelper;
 
@@ -27,11 +27,11 @@ public class DB_Connection {
         return connection;
     }
 
-    public static DB_Connection getInstance() throws SQLException {
+    public static DBConnection getInstance() throws SQLException {
         if (instance == null) {
-            instance = new DB_Connection();
+            instance = new DBConnection();
         } else if (instance.getConnection().isClosed()) {
-            instance = new DB_Connection();
+            instance = new DBConnection();
         }
         return instance;
     }
