@@ -13,15 +13,17 @@ public class CustomerExampleDataJavaFaker {
     public void createOneCustomerWithJavaFaker() throws SQLException {
         CustomerPojoWithLombock newCustomer= CustomerHelperWithJavaFaker.createOneCustomerWithJavaFaker();
         Assert.assertNotNull(newCustomer.getCustomerName());
+        Assert.assertNotNull(newCustomer.getCustomerEmail());
+        Assert.assertNotNull(newCustomer.getCustomerPhone());
     }
 
     @Test
     public void verifyCreatingListOfCustomersWithJavaFaker() throws Exception {
         List <CustomerPojoWithLombock> listOfCustomers = CustomerHelperWithJavaFaker.createListOfCustomersWithJavaFaker();
-       listOfCustomers.forEach(user -> {
-           Assert.assertNotNull(user.getCustomerEmail());
-           Assert.assertNotNull(user.getCustomerName());
-           Assert.assertNotNull(user.getCustomerPhone());
+       listOfCustomers.forEach(customer -> {
+           Assert.assertNotNull(customer.getCustomerEmail());
+           Assert.assertNotNull(customer.getCustomerName());
+           Assert.assertNotNull(customer.getCustomerPhone());
        });
     }
 
