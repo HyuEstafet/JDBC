@@ -1,4 +1,4 @@
-package jdbctests;
+package jdbc.tests;
 
 import dbconnection.DBConnection;
 import org.junit.Assert;

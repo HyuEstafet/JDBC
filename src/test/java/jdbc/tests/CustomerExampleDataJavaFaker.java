@@ -1,4 +1,4 @@
-package jdbctests;
+package jdbc.tests;
 
 import helpers.CustomerHelperWithJavaFaker;
 import org.junit.Assert;
