@@ -1,4 +1,4 @@
-package jdbc02lombockandjavafakertests;
+package jdbctests;
 
 import helpers.CustomerHelperWithJavaFaker;
 import org.junit.Assert;
