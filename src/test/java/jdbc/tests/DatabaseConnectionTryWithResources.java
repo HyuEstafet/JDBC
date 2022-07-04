@@ -2,7 +2,7 @@ package jdbc.tests;
 
 import java.sql.*;
 
-public class DBConnectionTryWithResources {
+public class DatabaseConnectionTryWithResources {
     public static void main(String[] args) throws SQLException {
 
         try (Connection connection = DriverManager.getConnection

@@ -7,14 +7,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DBConnection {
+public class DBConnectionNew {
 
-    private static DBConnection instance;
-    private Connection connection;
-    private PropertiesHelper propertiesHelper;
+    private static Connection connection;
+    private static PropertiesHelper propertiesHelper;
 
-    public Connection getConnection () throws SQLException {
+    public static Connection getConnection () throws SQLException {
+        if(connection==null){
+            createConnection();
+        } else if (connection.isClosed()){
+            createConnection();
+        }
+        return connection;
+    }
 
+    private static Connection createConnection() throws SQLException {
         try {
             propertiesHelper = PropertiesHelper.getInstance();
             connection = DriverManager.getConnection(
@@ -28,12 +35,4 @@ public class DBConnection {
         return connection;
     }
 
-    public static DBConnection getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new DBConnection();
-        } else if (instance.getConnection().isClosed()) {
-            instance = new DBConnection();
-        }
-        return instance;
-    }
 }

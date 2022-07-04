@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Builder // --> Produces complex builder APIs for the annotated POJO classes; For creating objects
@@ -12,7 +13,7 @@ import java.sql.Date;
 @NoArgsConstructor // --> Generates constructors that take no arguments
 @AllArgsConstructor // --> Constructor with one argument for every field
 
-public class CustomerPojoWithLombock {
+public class CustomersPojo implements Serializable {
 
     // @Column annotation needed for holding the information in the columns of the customers table
 @Column (name="customer_id")

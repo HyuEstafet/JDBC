@@ -1,19 +1,18 @@
 package helpers;
 
 import com.github.javafaker.Faker;
-import pojos.CustomerPojoWithLombock;
+import pojos.CustomersPojo;
 
-import java.sql.Date;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-public class CustomerHelperWithJavaFaker {
+public class CustomersHelper {
 
-    public static CustomerPojoWithLombock createOneCustomerWithJavaFaker() {
+    public static CustomersPojo createOneCustomerWithJavaFaker() {
         Faker faker = new Faker();
-        CustomerPojoWithLombock newCustomer = CustomerPojoWithLombock.builder()
+        CustomersPojo newCustomer = CustomersPojo.builder()
                 .customerId(faker.number().numberBetween(10,100))
                 .customerName(faker.name().fullName())
                 .customerEmail(faker.internet().emailAddress())
@@ -29,12 +28,12 @@ public class CustomerHelperWithJavaFaker {
         return newCustomer;
     }
 
-    public static List<CustomerPojoWithLombock> createListOfCustomersWithJavaFaker() {
+    public static List<CustomersPojo> createListOfCustomersWithJavaFaker() {
         Faker faker = new Faker();
-        ArrayList<CustomerPojoWithLombock> newCustomersList = new ArrayList<>();
+        ArrayList<CustomersPojo> newCustomersList = new ArrayList<>();
 
         for (int i=0; i < 10; i++) {
-            newCustomersList.add(CustomerPojoWithLombock.builder()
+            newCustomersList.add(CustomersPojo.builder()
                     .customerId(faker.number().numberBetween(10,100))
                     .customerName(faker.name().fullName())
                     .customerEmail(faker.internet().emailAddress())
