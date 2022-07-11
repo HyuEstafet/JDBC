@@ -36,4 +36,7 @@ public interface DaoInterface<T> {
     // Extract a single object from the database by id
     T getById(int id) throws SQLException;
 
+    // Extract a list of objects from the database by a List of ids
+    List<T> getByIds(List<Integer> ids) throws SQLException;
+
 }

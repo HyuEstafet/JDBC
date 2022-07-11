@@ -1,45 +1,40 @@
 package daos;
 
-import dbconnection.DBConnectionNew;
-import pojos.CustomersPojo;
 import dbconnection.DBConnection;
+import pojos.CustomersPojo;
 
-import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomersDao implements DaoInterface<CustomersPojo> {
     private Connection connection;
+    private DBConnection dbConnection = new DBConnection();
     private ResultSet resultSet;
     private PreparedStatement preparedStatement;
 
-    public void CustomerDao() throws SQLException, IOException {
-        connection=DBConnection.getInstance().getConnection();
-        System.out.println("Connection: " + connection);
-    }
-
     @Override
     public void save(CustomersPojo newCustomer) throws SQLException {
-        connection = new DBConnection().getConnection();
         try {
-            System.out.println("Connection save(): " + connection);
-            preparedStatement =connection.prepareStatement("INSERT INTO customers " +
-                    "(customer_id,customer_name,customer_email,customer_phone,customer_age,gdpr_status," +
+            preparedStatement = dbConnection.getInstance().getConnection().prepareStatement("INSERT INTO customers " +
+                    "(customer_name,customer_email,customer_phone,customer_age,gdpr_status," +
                     "customer_profile_status,date_profile_created,date_profile_deactivated,deactivation_reason," +
                     "customer_notes)" +
                     "VALUES " +
-                    "(?,?,?,?,?,?,?,?,?,?,?)");
-            preparedStatement.setInt(1,newCustomer.getCustomerId());
-            preparedStatement.setString(2,newCustomer.getCustomerName());
-            preparedStatement.setString(3,newCustomer.getCustomerEmail());
-            preparedStatement.setString(4,newCustomer.getCustomerPhone());
-            preparedStatement.setInt(5,newCustomer.getCustomerAge());
-            preparedStatement.setBoolean(6,newCustomer.isGdprStatus());preparedStatement.setBoolean(7,newCustomer.isCustomerProfileStatus());
-            preparedStatement.setDate(8,newCustomer.getDateProfileCreated());
-            preparedStatement.setDate(9,newCustomer.getDateProfileDeactivated());
-            preparedStatement.setString(10,newCustomer.getDeactivationReason());
-            preparedStatement.setString(11,newCustomer.getCustomerNotes());
+                    "(?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1,newCustomer.getCustomerName());
+            preparedStatement.setString(2,newCustomer.getCustomerEmail());
+            preparedStatement.setString(3,newCustomer.getCustomerPhone());
+            preparedStatement.setInt(4,newCustomer.getCustomerAge());
+            preparedStatement.setBoolean(5,newCustomer.isGdprStatus());
+            preparedStatement.setBoolean(6,newCustomer.isCustomerProfileStatus());
+            preparedStatement.setDate(7,newCustomer.getDateProfileCreated());
+            preparedStatement.setDate(8,newCustomer.getDateProfileDeactivated());
+            preparedStatement.setString(9,newCustomer.getDeactivationReason());
+            preparedStatement.setString(10,newCustomer.getCustomerNotes());
             System.out.println("Prepared statement: " + preparedStatement.toString());
             preparedStatement.executeUpdate();
             System.out.println("New customer is saved successfully:" + newCustomer);
@@ -51,11 +46,10 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
 
     @Override
     public void update(int id, String email) throws SQLException {
-        connection = new DBConnection().getConnection();
         try {
-            preparedStatement=connection.prepareStatement("UPDATE customers SET customer_email = ? WHERE customer_id = ?");
-            preparedStatement.setString(4,email);
-            preparedStatement.setInt(1,id);
+            preparedStatement=dbConnection.getInstance().getConnection().prepareStatement("UPDATE customers SET customer_email = ? WHERE customer_id = ?");
+            preparedStatement.setString(1,email);
+            preparedStatement.setInt(2,id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,12 +58,11 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
 
     @Override
     public void delete(int id) throws SQLException {
-        connection =  DBConnectionNew().getConnection();
         try {
-            preparedStatement =connection.prepareStatement("DELETE FROM customers WHERE customer_id= ?");
+            preparedStatement =dbConnection.getInstance().getConnection().prepareStatement("DELETE FROM customers WHERE customer_id= ?");
             preparedStatement.setInt(1,id);
             preparedStatement.executeUpdate();
-            System.out.println("Customer with "+id+ " is deleted");
+            System.out.println("Customer with id:"+id+ " is deleted");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,9 +70,8 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
 
     @Override
     public void deleteAll() throws SQLException {
-        connection = new DBConnection().getConnection();
         try {
-            preparedStatement=connection.prepareStatement("DELETE FROM customers");
+            preparedStatement=dbConnection.getInstance().getConnection().prepareStatement("DELETE FROM customers");
             preparedStatement.executeUpdate();
             System.out.println("All records deleted");
         } catch (SQLException e) {
@@ -90,10 +82,9 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
 
     @Override
     public CustomersPojo getRandomId() throws SQLException {
-        connection = new DBConnection().getConnection();
         CustomersPojo randomCustomerId = null;
         try {
-            preparedStatement=connection.prepareStatement("SELECT * FROM customers ORDER BY RANDOM() LIMIT 1");
+            preparedStatement=dbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM customers ORDER BY RANDOM() LIMIT 1");
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -120,11 +111,10 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
     }
 
     @Override
-    public List<Integer> getRandomIds(int randomCount) throws SQLException {
-        connection = new DBConnection().getConnection();
+    public List<Integer> getRandomIds(int randomCount) {
         List<Integer> randomCustomersIds = new ArrayList<>();
         try {
-            preparedStatement=connection.prepareStatement("SELECT * FROM customers ORDER BY RANDOM() LIMIT ?");
+            preparedStatement=dbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM customers ORDER BY RANDOM() LIMIT ?");
             preparedStatement.setInt(1,randomCount);
             resultSet=preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -139,11 +129,10 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
     }
 
     @Override
-    public int getRecordsCount() throws SQLException {
-        connection = new DBConnection().getConnection();
+    public int getRecordsCount(){
         int recordsCount = 0;
         try {
-            preparedStatement=connection.prepareStatement("SELECT COUNT(customer_id) FROM customers");
+            preparedStatement=dbConnection.getInstance().getConnection().prepareStatement("SELECT COUNT(customer_id) FROM customers");
             ResultSet resultSet=preparedStatement.executeQuery();
             if (resultSet.next()) {
                 recordsCount=resultSet.getInt("customer_id");
@@ -155,11 +144,10 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
     }
 
     @Override
-    public CustomersPojo getById(int id) throws SQLException {
-        connection = new DBConnection().getConnection();
+    public CustomersPojo getById(int id){
         CustomersPojo searchedCustomer = null;
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FROM customers WHERE customer_id= ?");
+            preparedStatement = dbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM customers WHERE customer_id= ?");
             preparedStatement.setInt(1,id);
             resultSet = preparedStatement.executeQuery();
             while(resultSet.next()) {
@@ -179,8 +167,39 @@ public class CustomersDao implements DaoInterface<CustomersPojo> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Selected user is with id: "+id);
+        System.out.println("Selected user is with id: " + id);
         System.out.println(searchedCustomer);
         return searchedCustomer;
+    }
+
+    @Override
+    public List<CustomersPojo> getByIds(List<Integer> ids) throws SQLException {
+        List<CustomersPojo> customers = new ArrayList<>();
+        try {
+            preparedStatement = dbConnection.getInstance().getConnection().prepareStatement("SELECT * FROM customers WHERE customer_id = ?");
+            for (int i=0; i < ids.size(); i ++) {
+                preparedStatement.setInt(1,ids.get(i));
+                resultSet=preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    CustomersPojo customer = new CustomersPojo();
+                    customer.setCustomerId(resultSet.getInt("customer_id"));
+                    customer.setCustomerName(resultSet.getString("customer_name"));
+                    customer.setCustomerEmail(resultSet.getString("customer_email"));
+                    customer.setCustomerPhone(resultSet.getString("customer_phone"));
+                    customer.setCustomerAge(resultSet.getInt("customer_age"));
+                    customer.setGdprStatus(resultSet.getBoolean("gdpr_status"));
+                    customer.setCustomerProfileStatus(resultSet.getBoolean("customer_profile_status"));
+                    customer.setDateProfileCreated(resultSet.getDate("date_profile_created"));
+                    customer.setDateProfileDeactivated(resultSet.getDate("date_profile_deactivated"));
+                    customer.setDeactivationReason(resultSet.getString("deactivation_reason"));
+                    customer.setCustomerNotes(resultSet.getString("customer_notes"));
+                }
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("List of customers: "+customers);
+        return customers;
     }
 }

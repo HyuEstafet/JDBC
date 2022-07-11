@@ -13,7 +13,7 @@ public class CustomersHelper {
     public static CustomersPojo createOneCustomerWithJavaFaker() {
         Faker faker = new Faker();
         CustomersPojo newCustomer = CustomersPojo.builder()
-                .customerId(faker.number().numberBetween(10,100))
+//                .customerId(faker.number().numberBetween(10,100))--> we don't need this because the id is autoincremented (serial)
                 .customerName(faker.name().fullName())
                 .customerEmail(faker.internet().emailAddress())
                 .customerPhone(faker.phoneNumber().cellPhone())
@@ -34,7 +34,7 @@ public class CustomersHelper {
 
         for (int i=0; i < 10; i++) {
             newCustomersList.add(CustomersPojo.builder()
-                    .customerId(faker.number().numberBetween(10,100))
+//                    .customerId(faker.number().numberBetween(10,100)) --> we don't need this because the id is autoincremented (serial)
                     .customerName(faker.name().fullName())
                     .customerEmail(faker.internet().emailAddress())
                     .customerPhone(faker.phoneNumber().cellPhone())

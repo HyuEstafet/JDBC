@@ -10,11 +10,26 @@ import java.sql.SQLException;
 public class DBConnection {
 
     private static DBConnection instance;
-    private Connection connection;
+    private static Connection connection;
     private PropertiesHelper propertiesHelper;
 
-    public Connection getConnection () throws SQLException {
+    public static DBConnection getInstance() throws SQLException {
+        if (instance == null) {
+            instance = new DBConnection();
+        }
+        return instance;
+    }
 
+    public Connection getConnection () throws SQLException {
+        if(connection==null){
+            createConnection();
+        } else if (connection.isClosed()){
+            createConnection();
+        }
+        return connection;
+    }
+
+    private void createConnection() throws SQLException {
         try {
             propertiesHelper = PropertiesHelper.getInstance();
             connection = DriverManager.getConnection(
@@ -25,15 +40,5 @@ public class DBConnection {
         } catch (IOException e) {
             System.out.println("Database Connection Creation Failed");
         }
-        return connection;
-    }
-
-    public static DBConnection getInstance() throws SQLException {
-        if (instance == null) {
-            instance = new DBConnection();
-        } else if (instance.getConnection().isClosed()) {
-            instance = new DBConnection();
-        }
-        return instance;
     }
 }

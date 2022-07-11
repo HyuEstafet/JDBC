@@ -16,8 +16,8 @@ import java.sql.Date;
 public class CustomersPojo implements Serializable {
 
     // @Column annotation needed for holding the information in the columns of the customers table
-@Column (name="customer_id")
-    private int customerId;
+@Column (name="customer_id") // --> the customer id will be zero on the console - it's auto-incremented and
+    private int customerId;  // the actual id will be reflected on the database (each next one will be +1)
 @Column (name="customer_name")
     private String customerName;
 @Column (name="customer_email")
